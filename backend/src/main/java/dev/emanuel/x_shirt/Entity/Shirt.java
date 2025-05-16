@@ -1,9 +1,11 @@
 package dev.emanuel.x_shirt.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,4 +37,8 @@ public class Shirt {
     @ManyToOne
     @JoinColumn(name = "categories_id")
     private Categories categories;
+
+    @OneToMany(mappedBy = "shirts")
+    @JsonIgnore
+    private List<Variations> variations;
 }
