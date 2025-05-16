@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `tb_order` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `payments_id` BIGINT NOT NULL,
+    `payments_id` BIGINT NOT NULL UNIQUE,
     `users_id` BIGINT NOT NULL,
     `date_order` TIMESTAMP,
     `status` VARCHAR(45),
