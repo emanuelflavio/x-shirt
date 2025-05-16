@@ -1,11 +1,9 @@
 package dev.emanuel.x_shirt.Entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -13,8 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_categories")
-public class Categories {
+@Table(name = "tb_shirts")
+public class Shirt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +23,16 @@ public class Categories {
 
     private String description;
 
-    @OneToMany(mappedBy = "categories")
-    @JsonIgnore
-    private List<Shirt> shirts;
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    private String mark;
+
+    private String genre;
+
+    private Double rating;
+
+    @ManyToOne
+    @JoinColumn(name = "categories_id")
+    private Categories categories;
 }
