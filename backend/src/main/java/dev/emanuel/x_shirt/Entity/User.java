@@ -28,8 +28,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-
-    private Type type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TypeUser type;
 
     @CreationTimestamp
     @Column(name = "created_at")

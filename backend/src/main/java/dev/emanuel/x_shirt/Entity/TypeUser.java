@@ -1,6 +1,6 @@
 package dev.emanuel.x_shirt.Entity;
 
-public enum Type {
+public enum TypeUser {
     ADMIN,
     USER,
 }
