@@ -1,7 +1,10 @@
 package dev.emanuel.x_shirt.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,5 +31,9 @@ public class Variations {
     @ManyToOne
     @JoinColumn(name = "shirt_id")
     private Shirt shirts;
+
+    @OneToMany(mappedBy = "variations")
+    @JsonIgnore
+    private List<OrderItems> orderItems;
 
 }

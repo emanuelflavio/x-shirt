@@ -38,7 +38,7 @@ public class Shirt {
     @JoinColumn(name = "categories_id")
     private Categories categories;
 
-    @OneToMany(mappedBy = "shirts")
+    @OneToMany(mappedBy = "orders")
     @JsonIgnore
-    private List<Variations> variations;
+    private List<OrderItems> orderItems;
 }
