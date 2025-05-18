@@ -1,11 +1,13 @@
 package dev.emanuel.x_shirt.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,4 +39,8 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "id", unique = true)
     private Payment payment;
+
+    @OneToMany(mappedBy = "orders")
+    @JsonIgnore
+    private List<OrderItems> orderItems;
 }
