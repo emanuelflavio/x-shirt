@@ -40,4 +40,7 @@ public class Variations {
     @JsonIgnore
     private List<CartItems> cartItems;
 
+    @OneToMany(mappedBy = "variations")
+    @JsonIgnore
+    private List<ImagesShirts> imagesShirts;
 }
