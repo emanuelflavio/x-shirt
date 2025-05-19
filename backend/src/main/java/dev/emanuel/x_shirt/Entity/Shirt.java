@@ -30,6 +30,7 @@ public class Shirt {
 
     private String mark;
 
+    @Enumerated(EnumType.STRING)
     private Genre genre;
 
     private Double rating;
