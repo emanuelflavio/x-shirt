@@ -1,0 +1,7 @@
+package dev.emanuel.x_shirt.Repository;
+
+import dev.emanuel.x_shirt.Entity.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
+}

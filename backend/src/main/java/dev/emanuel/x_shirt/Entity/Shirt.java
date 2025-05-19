@@ -30,7 +30,7 @@ public class Shirt {
 
     private String mark;
 
-    private String genre;
+    private Genre genre;
 
     private Double rating;
 

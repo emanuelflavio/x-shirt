@@ -43,6 +43,10 @@ public class User {
     @JsonIgnore
     private List<Order> orders;
 
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Cart> carts;
+
 
 
 
