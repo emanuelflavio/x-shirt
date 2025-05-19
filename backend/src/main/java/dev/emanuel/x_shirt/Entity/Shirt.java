@@ -42,4 +42,9 @@ public class Shirt {
     @OneToMany(mappedBy = "shirts")
     @JsonIgnore
     private List<Variations> variations;
+
+    @OneToMany(mappedBy = "shirts")
+    @JsonIgnore
+    private List<Review> reviews;
+
 }

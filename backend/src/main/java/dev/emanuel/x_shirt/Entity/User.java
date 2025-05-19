@@ -47,6 +47,10 @@ public class User {
     @JsonIgnore
     private List<Cart> carts;
 
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Review> reviews;
+
 
 
 
