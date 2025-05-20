@@ -51,6 +51,10 @@ public class User {
     @JsonIgnore
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Address> addresses;
+
 
 
 
