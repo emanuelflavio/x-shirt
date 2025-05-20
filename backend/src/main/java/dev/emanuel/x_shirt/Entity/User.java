@@ -55,6 +55,10 @@ public class User {
     @JsonIgnore
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Favorites> favorites;
+
 
 
 

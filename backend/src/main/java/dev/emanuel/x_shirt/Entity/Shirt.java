@@ -47,4 +47,8 @@ public class Shirt {
     @JsonIgnore
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "shirts")
+    @JsonIgnore
+    private List<Favorites> favorites;
+
 }
