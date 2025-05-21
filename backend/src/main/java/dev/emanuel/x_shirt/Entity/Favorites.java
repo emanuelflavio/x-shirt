@@ -20,7 +20,7 @@ public class Favorites {
     private Long id;
 
     @CreationTimestamp
-    private LocalDateTime date;
+    private LocalDateTime date_favorite;
 
     @ManyToOne
     @JoinColumn(name = "users_id")
