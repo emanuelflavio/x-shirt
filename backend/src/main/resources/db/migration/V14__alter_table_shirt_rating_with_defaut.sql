@@ -1,0 +1,1 @@
+ALTER TABLE `tb_shirts` MODIFY COLUMN `rating` DOUBLE DEFAULT 0.0;
