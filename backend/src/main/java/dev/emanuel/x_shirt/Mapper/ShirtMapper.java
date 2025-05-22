@@ -14,7 +14,6 @@ public class ShirtMapper {
 
         Categories category = Categories.builder().id(request.categoriesId()).build();
 
-
         return Shirt.builder()
                 .name(request.name())
                 .description(request.description())
