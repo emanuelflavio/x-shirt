@@ -38,7 +38,7 @@ public class ShirtController {
     @PutMapping("/{id}")
     public ResponseEntity<ShirtResponse> update(@PathVariable Long id, @RequestBody ShirtRequest request) {
         return shirtService.update(id, ShirtMapper.toShirt(request))
-                .map(movie -> ResponseEntity.ok(ShirtMapper.toShirtResponse(movie)))
+                .map(shirt -> ResponseEntity.ok(ShirtMapper.toShirtResponse(shirt)))
                 .orElse(ResponseEntity.notFound().build());
     }
 

@@ -15,6 +15,8 @@ public class ShirtService {
     private final ShirtRepository shirtRepository;
 
     public Shirt save(Shirt shirt) {
+        Double rating = shirt.getRating() != null ? shirt.getRating() : 0.0;
+        shirt.setRating(rating);
         return shirtRepository.save(shirt);
     }
 
