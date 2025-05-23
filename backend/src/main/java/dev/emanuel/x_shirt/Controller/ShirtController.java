@@ -35,6 +35,13 @@ public class ShirtController {
         );
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ShirtResponse> findShirtById(@PathVariable Long id) {
+        return shirtService.findById(id)
+                .map(shirt -> ResponseEntity.ok(ShirtMapper.toShirtResponse(shirt)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ShirtResponse> update(@PathVariable Long id, @RequestBody ShirtRequest request) {
         return shirtService.update(id, ShirtMapper.toShirt(request))
