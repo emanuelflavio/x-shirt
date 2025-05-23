@@ -2,6 +2,7 @@ package dev.emanuel.x_shirt.Controller;
 
 import dev.emanuel.x_shirt.Controller.request.CategoriesRequest;
 import dev.emanuel.x_shirt.Controller.response.CategoriesResponse;
+import dev.emanuel.x_shirt.Controller.response.ShirtResponse;
 import dev.emanuel.x_shirt.Entity.Categories;
 import dev.emanuel.x_shirt.Mapper.CategoriesMapper;
 import dev.emanuel.x_shirt.Mapper.ShirtMapper;
@@ -33,6 +34,13 @@ public class CategoriesController {
                 .map(CategoriesMapper::toCategoriesResponse)
                 .toList()
         );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriesResponse> findShirtById(@PathVariable Long id) {
+        return categoriesService.findById(id)
+                .map(categories -> ResponseEntity.ok(CategoriesMapper.toCategoriesResponse(categories)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
