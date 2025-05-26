@@ -35,15 +35,15 @@ public class ShirtService {
     public Optional<Shirt> update(Long id, Shirt shirtNew) {
         Optional<Shirt> oldShirt = shirtRepository.findById(id);
         if (oldShirt.isPresent()) {
-           Shirt oldShirtNew = oldShirt.get();
-           oldShirtNew.setName(shirtNew.getName());
-           oldShirtNew.setDescription(shirtNew.getDescription());
-           oldShirtNew.setPrice(shirtNew.getPrice());
-           oldShirtNew.setMark(shirtNew.getMark());
-           oldShirtNew.setGenre(shirtNew.getGenre());
-           oldShirtNew.setCategories(shirtNew.getCategories());
-           shirtRepository.save(oldShirtNew);
-           return Optional.of(oldShirtNew);
+            Shirt oldShirtNew = oldShirt.get();
+            oldShirtNew.setName(shirtNew.getName());
+            oldShirtNew.setDescription(shirtNew.getDescription());
+            oldShirtNew.setPrice(shirtNew.getPrice());
+            oldShirtNew.setMark(shirtNew.getMark());
+            oldShirtNew.setGenre(shirtNew.getGenre());
+            oldShirtNew.setCategories(shirtNew.getCategories());
+            shirtRepository.save(oldShirtNew);
+            return Optional.of(oldShirtNew);
         }
         return Optional.empty();
     }
