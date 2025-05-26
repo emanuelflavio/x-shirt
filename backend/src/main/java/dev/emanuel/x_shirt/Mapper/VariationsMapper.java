@@ -21,7 +21,6 @@ public class VariationsMapper {
     }
 
     public static VariationsResponse toVariationsResponse(Variations variations) {
-
         return VariationsResponse.builder()
                 .id(variations.getId())
                 .size(variations.getSize())
