@@ -1,3 +1,5 @@
+file:
+  upload-dir: /Users/emanu/Desktop/x-shirt/backend/src/main/resources/static
 spring:
   application:
     name: x-shirt
@@ -11,6 +13,13 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
 
   flyway:
     enabled: true
