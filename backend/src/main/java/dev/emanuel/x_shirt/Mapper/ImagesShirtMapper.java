@@ -14,6 +14,7 @@ public class ImagesShirtMapper {
         Variations variations = Variations.builder().id(request.variationsId()).build();
 
         return ImagesShirts.builder()
+                .name(request.name())
                 .urlImage(request.urlImage())
                 .main(request.main())
                 .variations(variations)
@@ -24,6 +25,7 @@ public class ImagesShirtMapper {
 
         return ImagesShirtResponse.builder()
                 .id(imagesShirts.getId())
+                .name(imagesShirts.getName())
                 .urlImage(imagesShirts.getUrlImage())
                 .main(imagesShirts.isMain())
                 .variationsId(imagesShirts.getVariations().getId())
