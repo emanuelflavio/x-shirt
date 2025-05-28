@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ImagesShirtRequest(
+        String name,
         String urlImage,
         boolean main,
         Long variationsId
