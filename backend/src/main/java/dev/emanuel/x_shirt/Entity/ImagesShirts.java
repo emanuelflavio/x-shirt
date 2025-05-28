@@ -16,13 +16,16 @@ public class ImagesShirts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(name = "url_image", nullable = false)
     private String urlImage;
 
     private boolean main;
 
     @ManyToOne
-    @JoinColumn(name = "variation_id")
+    @JoinColumn(name = "variations_id")
     private Variations variations;
 
 }
