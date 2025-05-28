@@ -39,11 +39,12 @@ public class FileController {
         return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
-    public List<UploadFileResponse> uploadFiles(List<MultipartFile> files) {
-        return List.of();
+    @PostMapping("uploadFiles")
+    public List<UploadFileResponse> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+        return files
+                .stream()
+                .map(this::uploadFile)
+                .toList();
     }
 
-    public ResponseEntity<ResponseEntity> downloadFile(String fileName, HttpServletRequest request) {
-        return null;
-    }
 }

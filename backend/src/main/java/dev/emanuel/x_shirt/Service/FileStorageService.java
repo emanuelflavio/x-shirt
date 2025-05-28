@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +25,11 @@ public class FileStorageService {
     private static final Logger logger = LoggerFactory.getLogger(FileStorageService.class);
 
     private final Path fileStorageLocation;
+
+    private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList(
+            "image/jpeg",
+            "image/png"
+    );
 
     @Autowired
     public FileStorageService(FileStorageConfig config) {
@@ -46,6 +53,15 @@ public class FileStorageService {
                 logger.error("Sorry! Filename contains invalid path sequence " + fileName);
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
+
+            String contentType = file.getContentType();
+
+            if (contentType == null || !ALLOWED_IMAGE_TYPES.contains(contentType.toLowerCase())) {
+                logger.error("Error type" + contentType);
+                throw new FileStorageException("Invalid file type: " + contentType +
+                        ". Only image files (JPEG, PNG) are allowed.");
+            }
+
             logger.info("Saving file in disk");
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
