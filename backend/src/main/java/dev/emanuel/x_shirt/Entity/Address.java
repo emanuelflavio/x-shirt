@@ -1,7 +1,10 @@
 package dev.emanuel.x_shirt.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,5 +35,9 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private User users;
+
+    @OneToMany(mappedBy = "address")
+    @JsonIgnore
+    private List<Order> orders;
 
 }

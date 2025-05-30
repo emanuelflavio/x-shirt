@@ -21,8 +21,11 @@ public class OrderItems {
     @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
-    private BigDecimal price_unitary;
+    @Column(nullable = false, name = "price_unitary")
+    private BigDecimal priceUnitary;
+
+    @Column(nullable = false, name = "subtotal_price")
+    private BigDecimal subtotalPrice;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -31,4 +34,9 @@ public class OrderItems {
     @ManyToOne
     @JoinColumn(name = "variations_id")
     private Variations variations;
+
+    @Transient
+    public Shirt getProduct() {
+        return this.variations != null ? this.variations.getShirts() : null;
+    }
 }

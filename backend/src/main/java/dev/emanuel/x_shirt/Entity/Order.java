@@ -33,14 +33,18 @@ public class Order {
     private BigDecimal total;
 
     @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @ManyToOne
     @JoinColumn(name = "users_id")
     private User users;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "payments_id", referencedColumnName = "id", unique = true)
     private Payment payment;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<OrderItems> orderItems;
 }
