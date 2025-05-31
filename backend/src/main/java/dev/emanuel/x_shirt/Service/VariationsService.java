@@ -6,6 +6,7 @@ import dev.emanuel.x_shirt.Repository.VariationsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,5 +44,9 @@ public class VariationsService {
             return Optional.of(oldVariationsNew);
         }
         return Optional.empty();
+    }
+
+    public List<Variations> findByShirts(Long id) {
+        return variationsRepository.findByShirtsId(id);
     }
 }

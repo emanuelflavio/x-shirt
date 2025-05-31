@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface VariationsRepository extends JpaRepository<Variations, Long> {
 
+    List<Variations> findByShirtsId(Long shirts_id);
 
 }

@@ -58,6 +58,14 @@ public class VariationsController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("shirt/{id}")
+    public ResponseEntity<List<VariationsResponse>> findByShirt(@PathVariable Long id) {
+        return ResponseEntity.ok(variationsService.findByShirts(id)
+                .stream()
+                .map(VariationsMapper::toVariationsResponse)
+                .toList());
+    }
+
 
 
 }
