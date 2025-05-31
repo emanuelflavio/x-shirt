@@ -36,7 +36,7 @@ public class AddressController {
         return ResponseEntity.ok(addresses
                 .stream()
                 .map(AddressMapper::toAddressResponse)
-                .toList();)
+                .toList());
     }
 
     @GetMapping("/{id}")
