@@ -22,6 +22,7 @@ public class OrderService {
     private final AddressRepository addressRepository;
     private final PaymentRepository paymentRepository;
     private final VariationsRepository variationsRepository;
+    private final CartService cartService;
 
     public List<Order> findByUser(User user) {
         return orderRepository.findByUsers(user);
@@ -84,8 +85,11 @@ public class OrderService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         order.setTotal(total);
 
-        return orderRepository.save(order);
+        Order orderNew = orderRepository.save(order);
 
+        cartService.clearCart(user);
+
+        return orderNew;
     }
 
     public List<Order> findAll() {
