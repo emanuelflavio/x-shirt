@@ -21,8 +21,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private MethodPayment method;
 
+    @Enumerated(EnumType.STRING)
     private StatusPayment status;
 
     @Column(nullable = false)
