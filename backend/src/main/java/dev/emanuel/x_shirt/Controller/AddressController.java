@@ -1,5 +1,6 @@
 package dev.emanuel.x_shirt.Controller;
 
+import dev.emanuel.x_shirt.Controller.request.AddressRequest;
 import dev.emanuel.x_shirt.Controller.response.AddressResponse;
 import dev.emanuel.x_shirt.Entity.Address;
 import dev.emanuel.x_shirt.Entity.User;
@@ -10,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,7 +55,71 @@ public class AddressController {
     }
 
 
+    @PostMapping
+    public ResponseEntity<AddressResponse> saveAddress(
+            @AuthenticationPrincipal User user,
+            @RequestBody AddressRequest addressRequest
+    ){
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        try{
+            Address address = AddressMapper.toAddress(addressRequest);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(AddressMapper.toAddressResponse(addressService
+                            .save(user, address)));
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 
+    @PostMapping("/{id}")
+    public ResponseEntity<AddressResponse> updateAddress(
+            @AuthenticationPrincipal User user,
+            @RequestBody AddressRequest addressRequest,
+            @PathVariable Long id
+    ){
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        try{
+            Address address = AddressMapper.toAddress(addressRequest);
+            return ResponseEntity.ok(AddressMapper
+                    .toAddressResponse(addressService
+                            .update(user, address, id)));
+        }
+        catch(AddressNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAddress(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long id
+    ){
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        try{
+            addressService.delete(id, user);
+            return ResponseEntity.noContent().build();
+        }
+        catch(AddressNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
