@@ -21,6 +21,7 @@ public class AddressMapper {
 
     public static AddressResponse toAddressResponse(Address address) {
         return AddressResponse.builder()
+                .id(address.getId())
                 .street(address.getStreet())
                 .city(address.getCity())
                 .state(address.getState())

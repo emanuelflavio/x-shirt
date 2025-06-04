@@ -30,8 +30,8 @@ public class AddressService {
     }
 
     @Transactional
-    public Address update(Address address, Long id){
-        Address oldAddress = addressRepository.findByIdAndUsers(id, address.getUsers());
+    public Address update(User user, Address address, Long id){
+        Address oldAddress = addressRepository.findByIdAndUsers(id, user);
 
         oldAddress.setCity(address.getCity());
         oldAddress.setState(address.getState());
