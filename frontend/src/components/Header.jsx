@@ -19,10 +19,10 @@ function Header() {
 
   return (
     <header className="bg-white shadow-md border-b border-gray-200">
-      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <nav className="container mx-auto px-7 py-0.1 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <img src="./src/assets/logo.png" alt="Logo E-commerce" className="h-30 w-auto" />
+          <img src="./src/assets/logo.png" alt="Logo E-commerce" className="h-35 w-auto" />
           <span className="text-xl font-semibold text-gray-800"></span>
         </Link>
 
