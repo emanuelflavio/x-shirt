@@ -15,7 +15,7 @@ const Header = () => {
     <header className="bg-gray-800 text-white p-4 shadow-md">
       <nav className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors">
-          X-Shirt
+          <img src="/../src/assets/logo.png" alt="" className='h-20 w-auto'/>
         </Link>
         <div className="flex space-x-4 items-center">
           <Link to="/" className="text-lg hover:text-blue-300 transition-colors">Home</Link>

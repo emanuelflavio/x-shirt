@@ -1,6 +1,7 @@
+// src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import authService from '../services/authService';
-import api from '../services/api';
+import api from '../services/api'; 
 
 const AuthContext = createContext();
 
@@ -13,17 +14,18 @@ export const AuthProvider = ({ children }) => {
     const loadUserFromToken = async () => {
       const token = authService.getAuthToken();
       if (token) {
-        // Em uma aplicação real, você faria uma chamada para /api/auth/me (um endpoint que valida o token e retorna dados do usuário logado)
-        // Por simplicidade aqui, apenas definimos um usuário básico se o token existe.
-        // Se a API retornar dados do usuário, use setUser(userData).
-        setUser({ email: 'usuario_autenticado@exemplo.com' }); 
+        // Em uma aplicação real, você faria uma chamada para /api/auth/me
+        // para validar o token no backend e obter os dados completos do usuário.
+        // Por simplicidade aqui, vamos apenas assumir que se o token existe, o usuário está "logado" no frontend.
+        setUser({ email: 'usuario_autenticado@exemplo.com' }); // Placeholder. Adapte com dados reais do JWT ou de um endpoint /me.
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       }
-      setLoading(false);
+      setLoading(false); 
     };
 
     loadUserFromToken();
 
+    
     const interceptor = api.interceptors.response.use(
       (response) => response,
       (error) => {
@@ -40,25 +42,26 @@ export const AuthProvider = ({ children }) => {
       api.interceptors.response.eject(interceptor);
     };
   }, []); 
+
   const login = async (email, password) => {
     try {
-      const data = await authService.login(email, password);
+      const data = await authService.login(email, password); 
       if (data.token) {
-        authService.setAuthToken(data.token);
+        authService.setAuthToken(data.token); 
         setUser({ email: email }); 
         api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
         return true; 
       }
       return false; 
     } catch (error) {
-    
       throw error;
     }
   };
 
   const register = async (userData) => {
     try {
-      const data = await authService.register(userData);
+      const data = await authService.register(userData); 
+      
       return data; 
     } catch (error) {
       throw error;
@@ -66,8 +69,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    authService.removeAuthToken();
-    setUser(null);
+    authService.removeAuthToken(); 
+    setUser(null); 
     delete api.defaults.headers.common['Authorization']; 
   };
 

@@ -1,11 +1,12 @@
+// src/pages/Auth/LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Importa o hook do contexto
+import { useAuth } from '../context/AuthContext'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(''); 
   const navigate = useNavigate();
   const { login } = useAuth(); 
 
@@ -19,11 +20,9 @@ const LoginPage = () => {
       if (success) {
         navigate('/'); 
       } else {
-        
         setError('Login falhou. Verifique suas credenciais.');
       }
     } catch (err) {
-        console.log(err)
       setError(err.response?.data?.message || 'Ocorreu um erro inesperado ao fazer login.');
     }
   };
@@ -36,7 +35,7 @@ const LoginPage = () => {
         </h2>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
               {error}
             </div>
           )}
@@ -80,7 +79,7 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
-        <div className="text-center text-sm">
+        <div className="text-center text-sm mt-4">
           Não tem uma conta?{' '}
           <Link to="/registro" className="font-medium text-blue-600 hover:text-blue-500">
             Registre-se aqui

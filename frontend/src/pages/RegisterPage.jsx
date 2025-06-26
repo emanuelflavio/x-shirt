@@ -1,3 +1,4 @@
+// src/pages/Auth/RegisterPage.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext'; 
@@ -25,7 +26,7 @@ const RegisterPage = () => {
 
     try {
       const userData = { name, email, password };
-      await register(userData); 
+      await register(userData); // Chama a função de registro do contexto
       setSuccessMessage('Registro bem-sucedido! Redirecionando para o login...');
       setTimeout(() => {
         navigate('/login'); 
@@ -43,12 +44,12 @@ const RegisterPage = () => {
         </h2>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
               {error}
             </div>
           )}
           {successMessage && (
-            <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+            <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
               {successMessage}
             </div>
           )}
@@ -120,7 +121,7 @@ const RegisterPage = () => {
             </button>
           </div>
         </form>
-        <div className="text-center text-sm">
+        <div className="text-center text-sm mt-4">
           Já tem uma conta?{' '}
           <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
             Faça login aqui
