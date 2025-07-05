@@ -1,8 +1,8 @@
-// frontend/src/pages/User/MyOrdersPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import orderService from '../services/orderService.js'; // Seu serviço de pedidos
+import orderService from '../services/orderService.js'; 
 
 const MyOrdersPage = () => {
   const { user } = useAuth();
@@ -20,7 +20,7 @@ const MyOrdersPage = () => {
       setLoading(true);
       setError('');
       try {
-        // Assume que getOrdersByUser já filtra por usuário logado
+        
         const fetchedOrders = await orderService.getOrdersByUser();
         setOrders(fetchedOrders);
       } catch (err) {

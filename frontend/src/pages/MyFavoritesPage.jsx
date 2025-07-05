@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import favoriteService from '../services/favoriteService.js'; // Seu serviço de favoritos
+import favoriteService from '../services/favoriteService.js';
 
 const MyFavoritesPage = () => {
   const { user } = useAuth();
-  const [favorites, setFavorites] = useState([]); // Lista de FavoritoResponseDTOs
+  const [favorites, setFavorites] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [actionMessage, setActionMessage] = useState(''); // Mensagens de sucesso/erro para ações
+  const [actionMessage, setActionMessage] = useState(''); 
 
-  // Efeito para carregar os favoritos do usuário
+  
   useEffect(() => {
     const fetchFavorites = async () => {
       if (!user) {
@@ -33,15 +33,15 @@ const MyFavoritesPage = () => {
     };
 
     fetchFavorites();
-  }, [user]); // Depende do usuário logado
+  }, [user]); 
 
-  // Função para remover um item dos favoritos
+  
   const handleRemoveFavorite = async (camisaId) => {
     if (window.confirm('Tem certeza que deseja remover este item dos seus favoritos?')) {
       setActionMessage('');
       try {
         await favoriteService.removeFavorite(camisaId);
-        // Atualiza a lista removendo o item do estado
+        
         setFavorites(favorites.filter(fav => fav.camisa.id !== camisaId));
         setActionMessage('Item removido dos favoritos com sucesso!');
       } catch (err) {
@@ -51,7 +51,7 @@ const MyFavoritesPage = () => {
     }
   };
 
-  // ----- Renderização Condicional com Base nos Estados -----
+ 
   if (loading) {
     return (
       <div className="container mx-auto py-8 text-center text-lg text-gray-600">

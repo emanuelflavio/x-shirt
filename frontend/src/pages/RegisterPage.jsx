@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
     try {
       const userData = { name, email, password };
-      await register(userData); // Chama a função de registro do contexto
+      await register(userData); 
       setSuccessMessage('Registro bem-sucedido! Redirecionando para o login...');
       setTimeout(() => {
         navigate('/login'); 

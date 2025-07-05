@@ -1,4 +1,4 @@
-// frontend/src/pages/Products/ProductDetailPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import productService from '../services/productService';
@@ -17,8 +17,8 @@ const ProductDetailPage = () => {
   const [selectedVariation, setSelectedVariation] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addToCartMessage, setAddToCartMessage] = useState('');
-  const [isFavorited, setIsFavorited] = useState(false); // Estado para se o produto está favoritado
-  const [favoriteActionMessage, setFavoriteActionMessage] = useState(''); // Mensagem de ação de favorito
+  const [isFavorited, setIsFavorited] = useState(false); 
+  const [favoriteActionMessage, setFavoriteActionMessage] = useState(''); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -32,7 +32,7 @@ const ProductDetailPage = () => {
           setSelectedVariation(firstAvailable);
         }
 
-        // Lógica para verificar se o produto está favoritado ao carregar
+        
         if (user) {
           try {
             const favorites = await favoriteService.getFavorites();

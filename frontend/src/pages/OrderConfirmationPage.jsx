@@ -1,4 +1,4 @@
-// frontend/src/pages/Checkout/OrderConfirmationPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import orderService from '../services/orderService.js'; 
@@ -30,7 +30,7 @@ const OrderConfirmationPage = () => {
       setLoading(true);
       setError('');
       try {
-        // Assume que getOrderById já verifica se o pedido pertence ao usuário
+        
         const fetchedOrder = await orderService.getOrderById(id);
         setOrder(fetchedOrder);
       } catch (err) {
@@ -42,9 +42,9 @@ const OrderConfirmationPage = () => {
     };
 
     fetchOrderDetails();
-  }, [id, user]); // Depende do ID do pedido na URL e do estado do usuário
+  }, [id, user]); 
 
-  // Helper para formatar o endereço (reutilizado do CheckoutPage)
+  
   const formatAddress = (addr) => {
     if (!addr) return 'Endereço inválido';
     return `${addr.street || ''}, ${addr.number || ''} ${addr.complement ? '- ' + addr.complement : ''}, ${addr.neighborhood || ''}, ${addr.city || ''} - ${addr.state || ''}, ${addr.zipcode || ''}`;
@@ -115,19 +115,19 @@ const OrderConfirmationPage = () => {
           </ul>
         </div>
 
-        {/* Endereço de Entrega */}
+       
         <div className="text-left mb-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-3">Endereço de Entrega:</h2>
           <p className="text-gray-700">{formatAddress(order.address)}</p> {/* Assumindo 'order.address' */}
         </div>
 
-        {/* Método de Pagamento */}
+        
         <div className="text-left mb-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-3">Método de Pagamento: {order.payment.method}</h2>
          
         </div>
 
-        {/* Ações Finais */}
+        
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mt-8">
           <Link
             to="/products"
@@ -136,7 +136,7 @@ const OrderConfirmationPage = () => {
             Continuar Comprando
           </Link>
           <Link
-            to="/perfil/pedidos" // Rota para listar todos os pedidos do usuário
+            to="/perfil/pedidos" 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-md transition duration-300 shadow-lg"
           >
             Ver Meus Pedidos
