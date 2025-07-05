@@ -40,8 +40,8 @@ public class Order {
     @JoinColumn(name = "users_id")
     private User users;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payments_id", referencedColumnName = "id", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "payments_id")
     private Payment payment;
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)

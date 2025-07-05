@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class Cart {
 
     private Boolean active;
 
+    private BigDecimal total;
+
     @CreationTimestamp
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
@@ -35,4 +38,14 @@ public class Cart {
     @JsonIgnore
     private List<CartItems> cartItems;
 
+
+    @Transient
+    public BigDecimal getTotal() {
+        if (cartItems == null || cartItems.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+        return cartItems.stream()
+                .map(CartItems::getSubtotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

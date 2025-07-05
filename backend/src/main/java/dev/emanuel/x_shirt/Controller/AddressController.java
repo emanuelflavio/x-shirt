@@ -77,7 +77,7 @@ public class AddressController {
     }
 
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<AddressResponse> updateAddress(
             @AuthenticationPrincipal User user,
             @RequestBody AddressRequest addressRequest,

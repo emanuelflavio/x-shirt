@@ -33,7 +33,7 @@ public class FavoritesController {
                 .map(FavoritesMapper::toFavoritesResponse).toList());
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     public ResponseEntity<FavoritesResponse> addFavorite(
             @AuthenticationPrincipal User user,
             @PathVariable Long id

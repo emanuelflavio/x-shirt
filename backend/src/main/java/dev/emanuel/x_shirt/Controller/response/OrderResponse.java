@@ -1,6 +1,8 @@
 package dev.emanuel.x_shirt.Controller.response;
 
+import dev.emanuel.x_shirt.Entity.Address;
 import dev.emanuel.x_shirt.Entity.OrderItems;
+import dev.emanuel.x_shirt.Entity.Payment;
 import dev.emanuel.x_shirt.Entity.StatusOrder;
 import lombok.Builder;
 
@@ -15,7 +17,8 @@ public record OrderResponse(
         StatusOrder status,
         BigDecimal total,
         Long userId,
-        Long paymentsId,
-        List<OrderItems> orderItems
+        Payment payment,
+        List<OrderItems> orderItems,
+        Address address
 ) {
 }

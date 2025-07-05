@@ -6,6 +6,8 @@ import dev.emanuel.x_shirt.Entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
+import java.util.stream.Collectors;
+
 @UtilityClass
 public class ShirtMapper {
 
@@ -37,7 +39,8 @@ public class ShirtMapper {
                 .categorie(shirt.getCategories().getName())
                 .favorites(shirt.getFavorites())
                 .reviews(shirt.getReviews())
-                .variations(shirt.getVariations())
+                .variations(shirt.getVariations().stream()
+                        .map(VariationsMapper::toVariationsResponse).collect(Collectors.toList()))
                 .build();
     }
 

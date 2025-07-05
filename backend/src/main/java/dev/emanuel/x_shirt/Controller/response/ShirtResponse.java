@@ -19,7 +19,7 @@ public record ShirtResponse(
         Genre genre,
         Double rating,
         String categorie,
-        List<Variations> variations,
+        List<VariationsResponse> variations,
         List<Review> reviews,
         List<Favorites> favorites
 ) {

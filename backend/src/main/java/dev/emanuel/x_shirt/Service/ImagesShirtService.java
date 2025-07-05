@@ -37,7 +37,7 @@ public class ImagesShirtService {
             String name = fileStorageService.storeFile(image);
             ImagesShirts imageShirt = new ImagesShirts();
             imageShirt.setName(name);
-            imageShirt.setUrlImage("/Users/emanu/Desktop/x-shirt/backend/src/main/resources/static/images" + name);
+            imageShirt.setUrlImage("http://localhost:8080/images/" + name);
             imageShirt.setVariations(variations);
             imagesShirtsRepository.save(imageShirt);
         return name;

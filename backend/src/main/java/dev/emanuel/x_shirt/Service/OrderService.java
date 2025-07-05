@@ -73,8 +73,6 @@ public class OrderService {
                             .variations(variations)
                             .priceUnitary(cartItems.getPriceUnitary())
                             .subtotalPrice(cartItems.getSubtotalPrice())
-                            .subtotalPrice(cartItems.getPriceUnitary()
-                                    .multiply(BigDecimal.valueOf(cartItems.getQuantity())))
                             .build();
                 }).toList();
 

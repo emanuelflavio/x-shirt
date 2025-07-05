@@ -62,14 +62,14 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (item.variationsId() == null || item.quantity() <= 0) {
+        if (item.id() == null || item.quantity() <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         try {
             Cart cart = cartService.updateCartItemsQuantity(
                     user,
-                    item.variationsId(),
+                    item.id(),
                     item.quantity()
             );
             return ResponseEntity.status(HttpStatus.OK).body(CartMapper.toCartResponse(cart));

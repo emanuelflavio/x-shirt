@@ -1,0 +1,1 @@
+ALTER TABLE `tb_carts` ADD `total` DECIMAL(10,2);

@@ -5,11 +5,13 @@ import dev.emanuel.x_shirt.Entity.CartItems;
 import dev.emanuel.x_shirt.Entity.User;
 import dev.emanuel.x_shirt.Entity.Variations;
 import dev.emanuel.x_shirt.Repository.CartRepository;
+import dev.emanuel.x_shirt.Repository.ShirtRepository; // Necessário para pegar o preço da camisa
 import dev.emanuel.x_shirt.Repository.VariationsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,7 @@ public class CartService {
 
     private final CartRepository cartRepository;
     private final VariationsRepository variationsRepository;
+    private final ShirtRepository shirtRepository;
 
     @Transactional
     public Cart getOrCreateCart(User user) {
@@ -41,23 +44,46 @@ public class CartService {
         Variations variations = variationsRepository.findById(variationId)
                 .orElseThrow(() -> new IllegalArgumentException("Variation " + variationId + " not found"));
 
+
+        if (variations.getStock() < quantity) {
+            throw new IllegalArgumentException("Not enough stock for this variation. Available: " + variations.getStock());
+        }
+
         Optional<CartItems> existItem = cart.getCartItems().stream()
                 .filter(cartItems -> cartItems.getVariations().getId().equals(variationId))
                 .findFirst();
 
         if (existItem.isPresent()) {
             CartItems cartItems = existItem.get();
-            cartItems.setQuantity(cartItems.getQuantity() + quantity);
+            int newTotalQuantity = cartItems.getQuantity() + quantity;
+
+            if (variations.getStock() < newTotalQuantity) {
+                throw new IllegalArgumentException("Adding this quantity would exceed stock. Available: " + variations.getStock());
+            }
+
+            cartItems.setQuantity(newTotalQuantity);
+            cartItems.setSubtotalPrice(cartItems.getPriceUnitary().multiply(BigDecimal.valueOf(newTotalQuantity)));
+
         }
         else {
             CartItems cartItems = new CartItems();
             cartItems.setCarts(cart);
             cartItems.setQuantity(quantity);
             cartItems.setVariations(variations);
-            cart.getCartItems().add(cartItems);
-        }
-        return cartRepository.save(cart);
 
+            BigDecimal variationPrice = variations.getShirts().getPrice();
+            if (variationPrice == null) {
+                throw new IllegalStateException("Variation price is null for variation ID: " + variationId);
+            }
+            cartItems.setPriceUnitary(variationPrice);
+
+            cartItems.setSubtotalPrice(variationPrice.multiply(BigDecimal.valueOf(quantity)));
+
+            cart.getCartItems().add(cartItems);
+
+        }
+
+        return cartRepository.save(cart);
     }
 
     @Transactional
@@ -69,7 +95,7 @@ public class CartService {
                 .findFirst();
 
         if (itemUpdate.isEmpty()) {
-            throw new IllegalArgumentException("Item " + cartItemId + " not found");
+            throw new IllegalArgumentException("Item " + cartItemId + " not found in cart");
         }
         CartItems cartItems = itemUpdate.get();
 
@@ -78,24 +104,24 @@ public class CartService {
         }
         else {
             if(quantity > cartItems.getVariations().getStock()) {
-                throw new IllegalArgumentException("Quantity is greater than stock");
+                throw new IllegalArgumentException("Quantity " + quantity + " is greater than stock for " + cartItems.getVariations().getShirts().getName() + ". Available: " + cartItems.getVariations().getStock());
             }
             cartItems.setQuantity(quantity);
+            cartItems.setSubtotalPrice(cartItems.getPriceUnitary().multiply(BigDecimal.valueOf(quantity)));
         }
         return cartRepository.save(cart);
     }
 
     @Transactional
     public Cart removeItemFromCart(User user, Long cartItemId) {
-        Cart cart;
-        cart = getOrCreateCart(user);
+        Cart cart = getOrCreateCart(user);
 
         Optional<CartItems> item = cart.getCartItems().stream()
                 .filter(cartItem -> cartItem.getId().equals(cartItemId))
                 .findFirst();
 
         if (item.isEmpty()) {
-            throw new IllegalArgumentException("Item " + cartItemId + " not found");
+            throw new IllegalArgumentException("Item " + cartItemId + " not found in cart");
         }
 
         CartItems cartItems = item.get();

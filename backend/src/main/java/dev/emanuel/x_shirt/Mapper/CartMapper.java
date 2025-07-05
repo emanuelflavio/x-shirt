@@ -11,6 +11,7 @@ public class CartMapper {
         return CartResponse.builder()
                 .id(cart.getId())
                 .active(cart.getActive())
+                .total(cart.getTotal())
                 .creationDate(cart.getCreationDate())
                 .cartItems(cart.getCartItems())
                 .build();

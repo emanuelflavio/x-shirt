@@ -59,6 +59,7 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         try{
+            System.out.println(request.toString());
             Order order = orderService.create(user, request.addressId(), request.paymentId());
             return ResponseEntity.status(HttpStatus.CREATED).body(OrderMapper.toOrderResponse(order));
         }catch (IllegalAccessError | InstantiationError e){
